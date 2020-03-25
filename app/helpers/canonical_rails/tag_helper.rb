@@ -35,7 +35,7 @@ module CanonicalRails
       (CanonicalRails.port || request.port).to_i
     end
 
-    def canonical_href(host = canonical_host, port = canonical_port, force_trailing_slash = nil)
+    def canonical_href(host: canonical_host, port: canonical_port, force_trailing_slash: nil)
       default_ports = { 'https://' => 443, 'http://' => 80 }
       port = port.present? && port.to_i != default_ports[canonical_protocol] ? ":#{port}" : ''
       raw "#{canonical_protocol}#{host}#{port}#{path_without_html_extension}#{trailing_slash_config(force_trailing_slash)}#{whitelisted_query_string}"
@@ -45,7 +45,7 @@ module CanonicalRails
       raw "#{path_without_html_extension}#{trailing_slash_config(force_trailing_slash)}#{whitelisted_query_string}"
     end
 
-    def canonical_tag(host = canonical_host, port = canonical_port, force_trailing_slash = nil)
+    def canonical_tag(host: canonical_host, port: canonical_port, force_trailing_slash: nil)
       canonical_url = canonical_href(host, port, force_trailing_slash)
       capture do
         if CanonicalRails.opengraph_url
